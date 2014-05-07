@@ -85,6 +85,9 @@ PRODUCT_PACKAGES += \
        audio_effects.conf \
        libcyanogen-dsp
 
+# Sim tool Kit
+PRODUCT_PACKAGES += Stk
+
 # FM Radio
 # We must adapt Qualcomm FM Radio app
 
