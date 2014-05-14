@@ -19,7 +19,6 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(PRODUCT_OUT)/kernel $(recovery_ramdisk) $(INSTA
 	$(hide) cp $(BOOTREC_LED) $(PRODUCT_OUT)/combinedroot/sbin/
 
 	$(hide) cp -R $(PRODUCT_OUT)/recovery/root/sbin/* $(PRODUCT_OUT)/root/sbin/
-	$(hide) cp $(LOCAL_PATH)/config/default.prop $(PRODUCT_OUT)/root/
 	$(hide) cp $(LOCAL_PATH)/config/init.environ.rc $(PRODUCT_OUT)/root/
 	$(hide) cp $(LOCAL_PATH)/recovery/init.rc $(PRODUCT_OUT)/recovery/root/
 	$(hide) cp $(LOCAL_PATH)/recovery/runatboot.sh $(PRODUCT_OUT)/recovery/root/sbin/
