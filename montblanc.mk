@@ -75,6 +75,10 @@ PRODUCT_PACKAGES += \
       regulatory.bin \
       linville.key.pub.pem
 
+# Crda Config ,need ?
+PRODUCT_COPY_FILES += \
+        device/sony/montblanc-common/config/regulatory.rules:system/etc/udev/rules.d/85-regulatory.rules \
+
 # Hostapd
 PRODUCT_PACKAGES += \
        hostapd_cli \
