@@ -81,6 +81,7 @@ TARGET_PROVIDES_LIBLIGHTS := true
 BOARD_CUSTOM_BOOTIMG_MK := device/sony/montblanc-common/custombootimg.mk
 TARGET_PROVIDES_INIT_RC := true
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/sony/montblanc-common/releasetools/semc_ota_from_target_files
+TARGET_RELEASETOOLS_EXTENSIONS := device/sony/montblanc-common/releasetools
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x01000000
