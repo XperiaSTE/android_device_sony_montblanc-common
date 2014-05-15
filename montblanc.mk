@@ -53,10 +53,10 @@ PRODUCT_COPY_FILES += \
 
 # CRDA
 PRODUCT_PACKAGES += \
-      crda \
-      regdbdump \
-      regulatory.bin \
-      linville.key.pub.pem
+       crda \
+       regdbdump \
+       regulatory.bin \
+       linville.key.pub.pem
 
 # KitKat Launcher
 PRODUCT_PACKAGES += Launcher3        
