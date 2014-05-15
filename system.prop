@@ -3,6 +3,7 @@ sys.mem.max_hidden_apps=5
 
 # Wireless
 wifi.interface=wlan0
+wifi.p2pinterface=wlan0
 
 # USB
 persist.sys.usb.config=mtp
