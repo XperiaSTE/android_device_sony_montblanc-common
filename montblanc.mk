@@ -59,6 +59,7 @@ PRODUCT_PACKAGES += \
        crda \
        regdbdump \
        regulatory.bin \
+       intersect \
        linville.key.pub.pem \
        85-regulatory.rules
 
