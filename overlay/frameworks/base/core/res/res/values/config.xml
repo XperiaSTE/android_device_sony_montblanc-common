@@ -73,6 +73,7 @@
          should be empty. -->
     <string-array translatable="false" name="config_tether_bluetooth_regexs">
         <item>"bnep\\d"</item>
+        <item>"bt-pan"</item>
     </string-array>
 
     <!--  Maximum number of supported users -->
