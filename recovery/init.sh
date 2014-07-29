@@ -26,18 +26,12 @@ busybox mknod -m 666 /dev/null c 1 3
 busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
-# trigger device specific LED
-if [ -e /sbin/bootrec-led ]
-then
-	./sbin/bootrec-led
-fi
+# trigger button-backlight
+source /sbin/bootrec-led
 
 # keycheck
 busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
 busybox sleep 3
-
-# android ramdisk
-load_image=/sbin/ramdisk.cpio
 
 # boot decision
 if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x5502 /proc/cmdline; then
@@ -46,6 +40,8 @@ if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x5502 /proc/cmdline; then
 	load_image=/sbin/ramdisk-recovery.cpio
 else
 	busybox echo 'ANDROID BOOT' >>boot.txt
+	# android ramdisk
+	load_image=/sbin/ramdisk.cpio
 fi
 
 # kill the keycheck process
