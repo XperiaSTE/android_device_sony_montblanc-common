@@ -1,12 +1,4 @@
 #!/sbin/busybox sh
-set +x
-_PATH="$PATH"
-export PATH=/sbin
-
-busybox cd /
-busybox date >>boot.txt
-exec >>boot.txt 2>&1
-busybox rm /init
 
 # include device specific vars
 source /sbin/bootrec-device
@@ -35,11 +27,9 @@ busybox sleep 3
 
 # boot decision
 if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x5502 /proc/cmdline; then
-	busybox echo 'RECOVERY BOOT' >>boot.txt
 	# recovery ramdisk
 	load_image=/sbin/ramdisk-recovery.cpio
 else
-	busybox echo 'ANDROID BOOT' >>boot.txt
 	# android ramdisk
 	load_image=/sbin/ramdisk.cpio
 fi
@@ -51,11 +41,12 @@ busybox umount /proc
 busybox umount /sys
 
 busybox rm -fr /dev/*
-busybox date >>boot.txt
+
+busybox rm /init
 
 # unpack the ramdisk image
 # -u should be used to replace the static busybox with dynamically linked one.
+cd /
 busybox cpio -ui < ${load_image}
 
-export PATH="${_PATH}"
 exec /init

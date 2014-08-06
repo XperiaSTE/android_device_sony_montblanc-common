@@ -59,6 +59,7 @@ PRODUCT_PACKAGES += \
        tinyalsa \
        libtinyalsa \
        audio_policy.default \
+       libaudio-resampler \
        audio.usb.default
        
 # Torch
@@ -89,6 +90,7 @@ PRODUCT_PACKAGES += \
         btmon \
         btproxy \
         audio.a2dp.default \
+        audio.sco.default \
         l2test \
         bluetoothd-snoop \
         init.bluetooth.rc \
@@ -112,11 +114,10 @@ PRODUCT_COPY_FILES += \
 
 # Hardware configuration scripts
 PRODUCT_COPY_FILES += \
-	device/sony/montblanc-common/config/omxloaders:system/etc/omxloaders \
-	device/sony/montblanc-common/config/ril_config:system/etc/ril_config \
-	device/sony/montblanc-common/config/install_wlan.sh:system/bin/install_wlan.sh \
-	device/sony/montblanc-common/config/ste_modem.sh:system/etc/ste_modem.sh \
-	device/sony/montblanc-common/config/usbid_init.sh:system/bin/usbid_init.sh \
+        device/sony/montblanc-common/config/omxloaders:system/etc/omxloaders \
+        device/sony/montblanc-common/config/ril_config:system/etc/ril_config \
+        device/sony/montblanc-common/config/install_wlan.sh:system/bin/install_wlan.sh \
+        device/sony/montblanc-common/config/ste_modem.sh:system/etc/ste_modem.sh \
 	device/sony/montblanc-common/config/cacert.txt:system/etc/suplcert/cacert.txt
 
 # Garbage Collector type
