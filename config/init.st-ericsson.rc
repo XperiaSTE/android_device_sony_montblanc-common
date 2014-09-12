@@ -94,10 +94,6 @@ on fs
     mount_all fstab.st-ericsson
     swapon_all fstab.st-ericsson
 
-    # recovery must start from here because system partition is
-    # sometimes busy and fail to unmount trought bootrec!
-    exec /sbin/bootrec
-
     # SEMC: Start the TrimArea Daemon and early TA-users
     class_start trimarea
     exec /system/bin/wait4tad
@@ -255,11 +251,12 @@ on boot
     # Enable debugfs for eng and userdebug variants
     class_start bootstage1
 
-
     # USB gadget initial setup
     write /sys/class/android_usb/android0/bDeviceClass 0
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+
+    write /sys/devices/platform/ab8500-i2c.0/ab8500-usb.0/boot_time_device 1
 
     # Permissions for Liblights.
     chown system system /sys/class/leds/lcd-backlight/brightness
@@ -695,10 +692,6 @@ service hw_config /system/bin/sh /system/etc/hw_config.sh
     class main
     user root
     oneshot
-    
-service usbid_init /system/bin/usbid_init.sh
-    class main
-    oneshot    
 
 # Start suntrold
 service suntrold /system/bin/suntrold
