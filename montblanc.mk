@@ -66,6 +66,10 @@ PRODUCT_PACKAGES += \
        hostapd_cli \
        hostapd
 
+# WIFI
+PRODUCT_PACKAGES += \
+       wpa_supplicant
+
 # FM Radio
 # We must adapt Qualcomm FM Radio app
 
