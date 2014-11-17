@@ -53,22 +53,22 @@ PRODUCT_PACKAGES += \
    
 # libtinyalsa & audio.usb.default
 PRODUCT_PACKAGES += \
-       tinyalsa \
-       libtinyalsa \
-       audio_policy.default \
-       audio.usb.default
+        tinyalsa \
+        libtinyalsa \
+        audio_policy.default \
+        audio.usb.default
        
 # libaudioparameter
 PRODUCT_PACKAGES += libaudioparameter
 
 # Hostapd
 PRODUCT_PACKAGES += \
-       hostapd_cli \
-       hostapd
+        hostapd_cli \
+        hostapd
 
 # WIFI
 PRODUCT_PACKAGES += \
-       wpa_supplicant
+        wpa_supplicant
 
 # FM Radio
 # We must adapt Qualcomm FM Radio app
@@ -112,8 +112,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Custom init scripts
 PRODUCT_COPY_FILES += \
         device/sony/montblanc-common/config/init.st-ericsson.rc:root/init.st-ericsson.rc \
-        device/sony/montblanc-common/config/ueventd.st-ericsson.rc:root/ueventd.st-ericsson.rc \
-        external/koush/Superuser/init.superuser.rc:root/init.superuser.rc
+        device/sony/montblanc-common/config/ueventd.st-ericsson.rc:root/ueventd.st-ericsson.rc
 
 # Post recovery script
 PRODUCT_COPY_FILES += \
