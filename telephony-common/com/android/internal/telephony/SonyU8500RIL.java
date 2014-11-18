@@ -36,6 +36,11 @@ public class SonyU8500RIL extends RIL implements CommandsInterface {
         super(context, networkMode, cdmaSubscription);
     }
 
+    public SonyU8500RIL(Context context, int preferredNetworkType,
+            int cdmaSubscription, Integer instanceId) {
+        super(context, preferredNetworkType, cdmaSubscription, instanceId);
+    }
+
     @Override
     public void
     dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
