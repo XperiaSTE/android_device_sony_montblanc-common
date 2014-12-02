@@ -1,0 +1,131 @@
+diff --git a/frameworks/av/services/audioflinger/AudioFlinger.cpp b/frameworks/av/services/audioflinger/AudioFlinger.cpp
+index 25a77d0..0f16bbf 100644
+--- a/frameworks/av/services/audioflinger/AudioFlinger.cpp
++++ b/frameworks/av/services/audioflinger/AudioFlinger.cpp
+@@ -153,11 +153,13 @@ static int load_audio_interface(const char *if_name, audio_hw_device_t **dev)
+     if (rc) {
+         goto out;
+     }
++#ifndef STE_AUDIO
+     if ((*dev)->common.version < AUDIO_DEVICE_API_VERSION_MIN) {
+         ALOGE("%s wrong audio hw device version %04x", __func__, (*dev)->common.version);
+         rc = BAD_VALUE;
+         goto out;
+     }
++#endif
+     return 0;
+ 
+ out:
+@@ -1781,6 +1783,7 @@ audio_module_handle_t AudioFlinger::loadHwModule_l(const char *name)
+     {  // scope for auto-lock pattern
+         AutoMutex lock(mHardwareLock);
+ 
++#ifndef STE_AUDIO
+         if (0 == mAudioHwDevs.size()) {
+             mHardwareStatus = AUDIO_HW_GET_MASTER_VOLUME;
+             if (NULL != dev->get_master_volume) {
+@@ -1798,6 +1801,7 @@ audio_module_handle_t AudioFlinger::loadHwModule_l(const char *name)
+                 }
+             }
+         }
++#endif
+ 
+         mHardwareStatus = AUDIO_HW_SET_MASTER_VOLUME;
+         if ((NULL != dev->set_master_volume) &&
+@@ -1806,12 +1810,14 @@ audio_module_handle_t AudioFlinger::loadHwModule_l(const char *name)
+                     AudioHwDevice::AHWD_CAN_SET_MASTER_VOLUME);
+         }
+ 
++#ifndef STE_AUDIO
+         mHardwareStatus = AUDIO_HW_SET_MASTER_MUTE;
+         if ((NULL != dev->set_master_mute) &&
+             (OK == dev->set_master_mute(dev, mMasterMute))) {
+             flags = static_cast<AudioHwDevice::Flags>(flags |
+                     AudioHwDevice::AHWD_CAN_SET_MASTER_MUTE);
+         }
++#endif
+ 
+         mHardwareStatus = AUDIO_HW_IDLE;
+     }
+diff --git a/frameworks/av/services/audiopolicy/AudioPolicyClientImplLegacy.cpp b/frameworks/av/services/audiopolicy/AudioPolicyClientImplLegacy.cpp
+index 97719da..b93191f 100644
+--- a/frameworks/av/services/audiopolicy/AudioPolicyClientImplLegacy.cpp
++++ b/frameworks/av/services/audiopolicy/AudioPolicyClientImplLegacy.cpp
+@@ -125,8 +125,13 @@ audio_io_handle_t aps_open_output_on_module(void *service __unused,
+                                                    audio_output_flags_t flags,
+                                                    const audio_offload_info_t *offloadInfo)
+ {
++#ifdef STE_AUDIO
++    return open_output(module, pDevices, pSamplingRate, pFormat, pChannelMask,
++                          pLatencyMs, flags, NULL);
++#else
+     return open_output(module, pDevices, pSamplingRate, pFormat, pChannelMask,
+                           pLatencyMs, flags, offloadInfo);
++#endif
+ }
+ 
+ audio_io_handle_t aps_open_dup_output(void *service __unused,
+diff --git a/frameworks/av/services/audiopolicy/AudioPolicyInterfaceImplLegacy.cpp b/frameworks/av/services/audiopolicy/AudioPolicyInterfaceImplLegacy.cpp
+index e1e81e1..58b49a5 100644
+--- a/frameworks/av/services/audiopolicy/AudioPolicyInterfaceImplLegacy.cpp
++++ b/frameworks/av/services/audiopolicy/AudioPolicyInterfaceImplLegacy.cpp
+@@ -335,12 +335,15 @@ status_t AudioPolicyService::setStreamVolumeIndex(audio_stream_type_t stream,
+         return BAD_VALUE;
+     }
+     Mutex::Autolock _l(mLock);
++#ifndef STE_AUDIO
+     if (mpAudioPolicy->set_stream_volume_index_for_device) {
+         return mpAudioPolicy->set_stream_volume_index_for_device(mpAudioPolicy,
+                                                                 stream,
+                                                                 index,
+                                                                 device);
+-    } else {
++    } else
++#endif
++    {
+         return mpAudioPolicy->set_stream_volume_index(mpAudioPolicy, stream, index);
+     }
+ }
+@@ -356,12 +359,15 @@ status_t AudioPolicyService::getStreamVolumeIndex(audio_stream_type_t stream,
+         return BAD_VALUE;
+     }
+     Mutex::Autolock _l(mLock);
++#ifndef STE_AUDIO
+     if (mpAudioPolicy->get_stream_volume_index_for_device) {
+         return mpAudioPolicy->get_stream_volume_index_for_device(mpAudioPolicy,
+                                                                 stream,
+                                                                 index,
+                                                                 device);
+-    } else {
++    } else
++#endif
++    {
+         return mpAudioPolicy->get_stream_volume_index(mpAudioPolicy, stream, index);
+     }
+ }
+@@ -433,11 +439,15 @@ bool AudioPolicyService::isStreamActive(audio_stream_type_t stream, uint32_t inP
+ 
+ bool AudioPolicyService::isStreamActiveRemotely(audio_stream_type_t stream, uint32_t inPastMs) const
+ {
++#ifndef STE_AUDIO
+     if (mpAudioPolicy == NULL) {
+         return 0;
+     }
+     Mutex::Autolock _l(mLock);
+     return mpAudioPolicy->is_stream_active_remotely(mpAudioPolicy, stream, inPastMs);
++#else
++    return 0;
++#endif
+ }
+ 
+ bool AudioPolicyService::isSourceActive(audio_source_t source) const
+@@ -474,6 +484,9 @@ status_t AudioPolicyService::queryDefaultPreProcessing(int audioSession,
+ 
+ bool AudioPolicyService::isOffloadSupported(const audio_offload_info_t& info)
+ {
++#ifdef STE_AUDIO
++    return false;
++#endif
+     if (mpAudioPolicy == NULL) {
+         ALOGV("mpAudioPolicy == NULL");
+         return false;
