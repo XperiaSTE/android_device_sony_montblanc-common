@@ -91,4 +91,18 @@ public class SonyU8500RIL extends RIL implements CommandsInterface {
     setNetworkSelectionModeManual(String operatorNumeric, Message response) {
         setNetworkSelectionMode(operatorNumeric, response);
     }
+
+    @Override
+    public void getImsRegistrationState(Message result) {
+        if(mRilVersion >= 8)
+            super.getImsRegistrationState(result);
+        else {
+            if (result != null) {
+                CommandException ex = new CommandException(
+                    CommandException.Error.REQUEST_NOT_SUPPORTED);
+                AsyncResult.forMessage(result, null, ex);
+                result.sendToTarget();
+            }
+        }
+    }
 }
