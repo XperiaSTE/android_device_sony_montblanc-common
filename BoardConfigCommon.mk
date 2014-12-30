@@ -20,6 +20,9 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
+# Restore pre-lollipop mmap behavior
+BOARD_USES_LEGACY_MMAP := true
+
 # RIL implementation
 BOARD_RIL_CLASS := ../../../device/sony/montblanc-common/telephony-common/
 
