@@ -105,4 +105,15 @@ public class SonyU8500RIL extends RIL implements CommandsInterface {
             }
         }
     }
+
+    @Override
+    public void
+    getHardwareConfig (Message result) {
+        if (result != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(result, null, ex);
+            result.sendToTarget();
+        }
+    }
 }
