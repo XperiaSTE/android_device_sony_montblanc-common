@@ -3,7 +3,6 @@ LOCAL_PATH := $(call my-dir)
 INITSH := $(LOCAL_PATH)/recovery/init.sh
 BOOTREC_DEVICE := device/sony/$(TARGET_DEVICE)/config/bootrec-device
 BOOTREC_LED := device/sony/$(TARGET_DEVICE)/config/bootrec-led
-RECOVERY_RAMDISK := device/sony/$(TARGET_DEVICE)/prebuilt/ramdisk-recovery.cpio
 
 INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
 $(INSTALLED_BOOTIMAGE_TARGET): $(PRODUCT_OUT)/kernel $(recovery_ramdisk) $(INSTALLED_RAMDISK_TARGET) $(PRODUCT_OUT)/utilities/busybox $(MKBOOTIMG) $(MINIGZIP) $(INTERNAL_BOOTIMAGE_FILES)
@@ -22,7 +21,8 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(PRODUCT_OUT)/kernel $(recovery_ramdisk) $(INSTA
 	$(hide) cp -R $(PRODUCT_OUT)/recovery/root/sbin/* $(PRODUCT_OUT)/root/sbin/
 	$(hide) $(MKBOOTFS) $(PRODUCT_OUT)/root > $(PRODUCT_OUT)/ramdisk.cpio
 	$(hide) cp $(PRODUCT_OUT)/ramdisk.cpio $(PRODUCT_OUT)/combinedroot/sbin/
-	$(hide) cp $(RECOVERY_RAMDISK) $(PRODUCT_OUT)/combinedroot/sbin/
+	$(hide) $(MKBOOTFS) $(PRODUCT_OUT)/recovery/root > $(PRODUCT_OUT)/ramdisk-recovery.cpio
+	$(hide) cp $(PRODUCT_OUT)/ramdisk-recovery.cpio $(PRODUCT_OUT)/combinedroot/sbin/
 	$(hide) $(MKBOOTFS) $(PRODUCT_OUT)/combinedroot > $(PRODUCT_OUT)/combinedroot.cpio
 	$(hide) cat $(PRODUCT_OUT)/combinedroot.cpio | gzip > $(PRODUCT_OUT)/combinedroot.fs
 
