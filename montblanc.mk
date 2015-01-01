@@ -65,20 +65,13 @@ PRODUCT_PACKAGES += \
         audio_policy.default \
         audio.usb.default
        
-# libaudioparameter
-PRODUCT_PACKAGES += libaudioparameter
-
-# Hostapd
+# Hostapd & WIFI
 PRODUCT_PACKAGES += \
         hostapd_cli \
-        hostapd
-
-# WIFI
-PRODUCT_PACKAGES += \
-        wpa_supplicant
-
-# FM Radio
-# We must adapt Qualcomm FM Radio app
+        hostapd \
+        wpa_supplicant \
+        wpa_cli \
+        libwpa_client
 
 # Misc
 PRODUCT_PACKAGES += com.android.future.usb.accessory
