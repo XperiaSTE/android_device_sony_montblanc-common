@@ -327,9 +327,6 @@ on boot
     # SEMC: Change permission for MTP device file
     chmod 0666 /dev/mtp
 
-    # SoMC: Check if ENG enabled
-    exec /system/bin/usbeng
-
     # SEMC: Include IO wait time into CPU usage calculation to increase IO performance
     write /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy 1
 
@@ -430,7 +427,6 @@ service admsrv /system/bin/admsrv
     ioprio rt 4
     capability NET_ADMIN NET_RAW SYS_NICE
 
-    
 # Initialize Bluetooth/FM/GPS chip
 service init_ste-cg2900 /system/bin/hciattach -a 23 -n -s 115200 /dev/ttyAMA0 cg2900 115200 flow
     user bluetooth
@@ -442,11 +438,6 @@ service init_ste-cg2900 /system/bin/hciattach -a 23 -n -s 115200 /dev/ttyAMA0 cg
 service init_ste-cw1200 /system/bin/install_wlan.sh
     disabled
     oneshot
-
-# Sony Illumination Service
-service illumination /system/bin/illumination_service
-    class main
-    user root
 
 on property:init.svc.bluetoothd=stopped
     write /sys/class/rfkill/rfkill1/state 0
@@ -605,7 +596,6 @@ service watchdog-kicker /system/xbin/watchdog-kicker -d /dev/watchdog -t 120
     class main
     oneshot
 
-
 # SEMC: TrimArea Daemon
 service tad /system/bin/tad /dev/block/mmcblk0 9,4,256
     user root
@@ -629,12 +619,6 @@ service modemcatcher /system/bin/modemcatcher -f
     class main
     user root
     socket modemcatcher stream 0660 root root
-
-# SEMC Battery real capacity updater
-service batcap /system/bin/batcap
-    class main
-    user root
-    oneshot
 
 service hw_config /system/bin/sh /system/etc/hw_config.sh
     class main
