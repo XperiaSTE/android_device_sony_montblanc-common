@@ -134,3 +134,7 @@ PRODUCT_COPY_FILES += \
 
 # Garbage Collector type
 PRODUCT_TAGS += dalvik.gc.type-precise
+
+# OpenDelta
+PRODUCT_PROPERTY_OVERRIDES += ro.delta.version=VERSION
+PRODUCT_PACKAGES += OpenDelta
