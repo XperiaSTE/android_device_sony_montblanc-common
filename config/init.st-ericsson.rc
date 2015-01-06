@@ -89,6 +89,7 @@ on fs
     setprop ro.crypto.state unsupported
 
     mount_all fstab.st-ericsson
+    swapon_all fstab.st-ericsson
 
     # SEMC: Start the TrimArea Daemon and early TA-users
     class_start trimarea
@@ -321,6 +322,9 @@ on boot
     write /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy 1
 
     write /proc/sys/kernel/sysrq 0
+
+    # Read only 1 page at a time
+    write /proc/sys/vm/page-cluster 0
 
     # Configurate TCP/IP kernel settings
     exec /system/bin/sh /system/etc/init.netconfig.sh
