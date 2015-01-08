@@ -32,6 +32,8 @@ import java.util.ArrayList;
  * {@hide}
  */
 public class SonyU8500RIL extends RIL implements CommandsInterface {
+    static final String LOG_TAG = "SonyU8500RIL";
+
     public SonyU8500RIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription);
         mQANElements = 5;
@@ -97,6 +99,7 @@ public class SonyU8500RIL extends RIL implements CommandsInterface {
         if(mRilVersion >= 8)
             super.getImsRegistrationState(result);
         else {
+            Rlog.i(LOG_TAG, "getImsRegistrationState: not supported");
             if (result != null) {
                 CommandException ex = new CommandException(
                     CommandException.Error.REQUEST_NOT_SUPPORTED);
@@ -109,11 +112,40 @@ public class SonyU8500RIL extends RIL implements CommandsInterface {
     @Override
     public void
     getHardwareConfig (Message result) {
+        Rlog.i(LOG_TAG, "getHardwareConfig: not supported");
         if (result != null) {
             CommandException ex = new CommandException(
                 CommandException.Error.REQUEST_NOT_SUPPORTED);
             AsyncResult.forMessage(result, null, ex);
             result.sendToTarget();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void getCellInfoList(Message result) {
+        Rlog.i(LOG_TAG, "getCellInfoList: not supported");
+        if (result != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(result, null, ex);
+            result.sendToTarget();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCellInfoListRate(int rateInMillis, Message response) {
+        Rlog.i(LOG_TAG, "setCellInfoListRate: not supported");
+        if (response != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(response, null, ex);
+            response.sendToTarget();
         }
     }
 }
