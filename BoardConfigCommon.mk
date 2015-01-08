@@ -107,5 +107,8 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
+# Use dlmalloc instead of jemalloc
+MALLOC_IMPL := dlmalloc
+
 # System proprieties
 TARGET_SYSTEM_PROP := device/sony/montblanc-common/system.prop
