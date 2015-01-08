@@ -132,5 +132,3 @@ PRODUCT_COPY_FILES += \
         device/sony/montblanc-common/config/sensor00_f11_sensor0.idc:system/usr/idc/sensor00_f11_sensor0.idc \
         device/sony/montblanc-common/config/synaptics_rmi4_i2c.idc:system/usr/idc/synaptics_rmi4_i2c.idc
 
-# Garbage Collector type
-PRODUCT_TAGS += dalvik.gc.type-precise
