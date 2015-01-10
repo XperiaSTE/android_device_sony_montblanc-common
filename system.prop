@@ -39,5 +39,4 @@ persist.audio.hp=true
 ro.sound.driver=alsa
 
 # Awesome Player
-media.stagefright.use-awesome=true
 persist.sys.media.use-awesome=true
