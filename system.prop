@@ -1,5 +1,6 @@
 # System generic configuration
 sys.sysctl.extra_free_kbytes=1024
+ro.sys.fw.bg_apps_limit=16
 
 # Wireless
 wifi.interface=wlan0
