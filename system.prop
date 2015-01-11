@@ -1,5 +1,6 @@
 # System generic configuration
 ro.sys.fw.bg_apps_limit=16
+ro.config.max_starting_bg=4
 persist.sys.purgeable_assets=1
 ro.ksm.default=1
 dalvik.vm.jit.codecachesize=0.5
