@@ -3,6 +3,7 @@ sys.sysctl.extra_free_kbytes=1024
 ro.sys.fw.bg_apps_limit=16
 persist.sys.purgeable_assets=1
 ro.ksm.default=1
+dalvik.vm.jit.codecachesize=0.5
 
 # Wireless
 wifi.interface=wlan0
