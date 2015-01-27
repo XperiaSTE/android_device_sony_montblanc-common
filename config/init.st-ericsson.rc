@@ -26,6 +26,11 @@ on early-init
 
     chmod 0644 /proc/cmdline
 
+    # KSM
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
+
 on init
     # setup the global environment
     export LD_LIBRARY_PATH /vendor/lib:/system/lib:/system/lib/ste_omxcomponents
@@ -88,11 +93,8 @@ on fs
 
     setprop ro.crypto.state unsupported
 
-#    wait /dev/block/mmcblk0p14
-#    mkdir /sde
-#    mount vfat /dev/block/mmcblk0p14 /sde  rw wait
-
     mount_all fstab.st-ericsson
+    swapon_all fstab.st-ericsson
 
     # SEMC: Start the TrimArea Daemon and early TA-users
     class_start trimarea
@@ -203,11 +205,6 @@ on post-fs-data
     mkdir /data/system 0775 system system
     chown system system /data/system
 
-    # if needed
-    #mkdir /data/misc/wifi/hostapd 0770 wifi wifi
-    #chmod 0770 /data/misc/wifi/hostapd
-    #chown wifi wifi /data/misc/wifi/hostapd
-
     # Setup paths used for socket communication with the dhcp daemon(dhcpd)
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
@@ -250,7 +247,6 @@ on boot
 
     # Enable debugfs for eng and userdebug variants
     class_start bootstage1
-
 
     # USB gadget initial setup
     write /sys/class/android_usb/android0/bDeviceClass 0
@@ -331,6 +327,9 @@ on boot
     write /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy 1
 
     write /proc/sys/kernel/sysrq 0
+
+    # Read only 1 page at a time
+    write /proc/sys/vm/page-cluster 0
 
     # Configurate TCP/IP kernel settings
     exec /system/bin/sh /system/etc/init.netconfig.sh
