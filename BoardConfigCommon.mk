@@ -17,6 +17,7 @@ TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
+ARCH_ARM_HAVE_NEON := true
 
 # Restore pre-lollipop mmap behavior
 BOARD_USES_LEGACY_MMAP := true
@@ -56,10 +57,7 @@ TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Graphics
 BOARD_EGL_CFG := device/sony/montblanc-common/config/egl.cfg
-BOARD_EGL_NEEDS_LEGACY_FB := true
 USE_OPENGL_RENDERER := true
-COMMON_GLOBAL_CFLAGS += -DEGL_NEEDS_FNW -DBOARD_EGL_NEEDS_LEGACY_FB -DSCREENSHOT_CLIENT_STRIDE_HACK
-BOARD_HAVE_PIXEL_FORMAT_INFO := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 # Enable dex-preoptimization to speed up first boot sequence
