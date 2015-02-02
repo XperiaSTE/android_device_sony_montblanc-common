@@ -96,13 +96,8 @@ PRODUCT_PACKAGES += \
         hciattach
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
-        ro.debuggable=1 \
         ro.secure=0 \
-        ro.allow.mock.location=0 \
-        persist.service.adb.enable=1 \
-        persist.service.debuggable=1 \
-        persist.sys.force_highendgfx=true \
-        persist.sys.usb.config=mtp
+        ro.adb.secure=0
 
 # Custom init scripts
 PRODUCT_COPY_FILES += \
