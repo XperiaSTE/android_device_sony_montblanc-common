@@ -332,9 +332,6 @@ on boot
     # Read only 1 page at a time
     write /proc/sys/vm/page-cluster 0
 
-    # Configurate TCP/IP kernel settings
-    exec /system/bin/sh /system/etc/init.netconfig.sh
-
     # SEMC: Enable Wifi EAP SIM
     setprop ro.wifi.eap_sim_enabled true
 
@@ -585,12 +582,6 @@ service atd /system/bin/at_core -mode normal -serial ttyGS0
     class modem
     user root
     group radio audio system
-
-# STE, Modem Access daemon
-service mad /system/bin/ste_mad
-    class modem
-    user radio
-    group radio dbus_access misc
 
 service watchdog-kicker /system/xbin/watchdog-kicker -d /dev/watchdog -t 120
     class main
