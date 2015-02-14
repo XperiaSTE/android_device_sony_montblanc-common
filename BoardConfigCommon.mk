@@ -62,6 +62,11 @@ USE_OPENGL_RENDERER := true
 COMMON_GLOBAL_CFLAGS += -DBOARD_CANT_REALLOCATE_OMX_BUFFERS
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
+# Bootanimation optimization flags
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := false
+TARGET_BOOTANIMATION_USE_RGB565 := true
+
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
   ifeq ($(TARGET_BUILD_VARIANT),userdebug)
