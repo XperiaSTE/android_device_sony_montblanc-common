@@ -31,7 +31,6 @@ PRODUCT_COPY_FILES += \
 
 # Configuration files
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml \
     $(COMMON_PATH)/config/asound.conf:system/etc/asound.conf \
     $(COMMON_PATH)/config/hostapd.conf:system/etc/wifi/hostapd.conf \
     $(COMMON_PATH)/config/01stesetup:system/etc/init.d/01stesetup \
@@ -39,11 +38,12 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/config/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(COMMON_PATH)/config/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf
 
-# Google && ffmpeg Codecs
+# Media Codecs
 PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
+    $(COMMON_PATH)/config/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
 
 # Custom init scripts
