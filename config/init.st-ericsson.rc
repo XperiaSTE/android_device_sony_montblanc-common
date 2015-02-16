@@ -3,16 +3,18 @@ import init.st-ericsson.device.rc
 import init.bluetooth.rc
 
 on early-init
-    mkdir /mnt 0775 root system
-    mkdir /mnt/shell 0700 shell shell
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0644 /proc/cmdline
+
+on init
+    # setup the global environment
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib:/system/lib/ste_omxcomponents
+    export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents/
+    export OMX_BELLAGIO_LOADER_REGISTRY /system/etc/omxloaders
 
     # storage directories
-    mkdir /mnt/media_rw 0700 media_rw media_rw
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
     mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-
-    # fuse storage directories
-    mkdir /storage 0751 root sdcard_r
     mkdir /storage/sdcard0 0700 root root
     mkdir /storage/usbdisk 0700 root root
 
@@ -24,32 +26,11 @@ on early-init
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 
-    chmod 0644 /proc/cmdline
-
-    # KSM
-    write /sys/kernel/mm/ksm/pages_to_scan 100
-    write /sys/kernel/mm/ksm/sleep_millisecs 500
-    write /sys/kernel/mm/ksm/deferred_timer 1
-    write /sys/kernel/mm/ksm/run 1
-
-on init
-    # setup the global environment
-    export LD_LIBRARY_PATH /vendor/lib:/system/lib:/system/lib/ste_omxcomponents
-    export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents/
-    export OMX_BELLAGIO_LOADER_REGISTRY /system/etc/omxloaders
-    
-    #NANO Editor
-    export TERMINFO /system/etc/terminfo
-    export TERM linux
-
     mkdir /modemfs 0771 system system
 
     # Shared memory file system
     mkdir /dev/shm 0700 audio system
     mount tmpfs tmpfs /dev/shm mode=0755,gid=1000
-
-    write /proc/sys/kernel/sched_rt_period_us 10000000
-    write /proc/sys/kernel/sched_rt_runtime_us 9500000
 
     # STE: create /tmp directory needed by psccd and CSPSA
     # ...but make it a symlink so that sysmon may use it also
@@ -157,9 +138,6 @@ on post-fs
     mkdir /data/mediaserver 0740 media media
     mkdir /data/pc 0700 radio radio
 
-    # Camera
-    mkdir /data/camera 0771 root camera
-
     chown system system /sys/devices/platform/musb-ux500.0/musb-hdrc/gadget/lun1/file
     chmod 0660 /sys/devices/platform/musb-ux500.0/musb-hdrc/gadget/lun1/file
     write /sys/devices/platform/musb-ux500.0/musb-hdrc/gadget/lun0/nofua 1
@@ -182,34 +160,9 @@ on post-fs-data
     # Create directory for STE OMX debug logs
     mkdir /data/ste-debug 0777 root root
 
-    ### WIFI THINGS ###
-    # give system access to wpa_supplicant.conf for backup and restore
-    mkdir /data/misc/wifi 0770 wifi wifi
-    chmod 0770 /data/misc/wifi
-    chown wifi wifi /data/misc/wifi
-
-    # CTRL_IFACE_CLIENT_DIR
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    chmod 0770 /data/misc/wifi/sockets
-    chown wifi wifi /data/misc/wifi/sockets
-
-    # CTRL_IFACE_DIR
-    # wpa_supplicant socket (unix socket mode)
-    mkdir /data/misc/wifi/wpa_supplicant 0771 wifi wifi
-    chmod 0771 /data/misc/wifi/wpa_supplicant
-    chown wifi wifi /data/misc/wifi/wpa_supplicant
-
-    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
-    chown wifi wifi /data/misc/wifi/wpa_supplicant.conf
-
     # Setup paths used for socket communication with the wpa supplicant.
     mkdir /data/system 0775 system system
     chown system system /data/system
-
-    # Setup paths used for socket communication with the dhcp daemon(dhcpd)
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-    ### WIFI THINGS END ###
 
     # STE: Modem Log Relay runs as system
     chown system system /dev/db8500-modem-trace
@@ -329,6 +282,13 @@ on boot
 
     write /proc/sys/kernel/sysrq 0
 
+    # KSM
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/deferred_timer 1
+    write /sys/kernel/mm/ksm/run 1
+
+    # Swap
     # Read only 1 page at a time
     write /proc/sys/vm/page-cluster 0
 
@@ -345,8 +305,6 @@ on boot
     # overhead is too large with ondemand. Workaround to not have kernel patches.
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    
-    exec cg2900-channel_init.sh
     
     start init_ste-cg2900
     
@@ -443,13 +401,6 @@ on property:init.svc.bluetoothd=stopped
 on property:init.svc.bluetoothd=running
     write /sys/class/rfkill/rfkill1/state 1
     setprop bluetooth.status on
-
-service pand /system/bin/logwrapper /system/bin/pand -s -n -M -A -E -r NAP -u /system/bin/blue-up.sh
-    class main
-    user root
-    group bluetooth net_bt_admin misc
-    disabled
-    oneshot
 
 # STE
 service lbsd /system/bin/lbsd
