@@ -99,6 +99,10 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
         ro.secure=0 \
         ro.adb.secure=0
 
+# Set default USB configuration
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+        persist.sys.usb.config=mtp
+
 # Custom init scripts
 PRODUCT_COPY_FILES += \
         device/sony/montblanc-common/config/init.st-ericsson.rc:root/init.st-ericsson.rc \
