@@ -95,9 +95,10 @@ PRODUCT_PACKAGES += \
         libsbc \
         hciattach
 
+# Development settings
 ADDITIONAL_DEFAULT_PROPERTIES += \
         ro.secure=0 \
-        ro.adb.secure=0
+        ro.adb.secure=1
 
 # Set default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
