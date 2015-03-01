@@ -1,9 +1,6 @@
 # Wireless
 wifi.interface=wlan0
 
-# USB
-persist.sys.usb.config=mtp
-
 # Bluetooth
 persist.sys.bluetooth.handsfree=hfp_wbs
 

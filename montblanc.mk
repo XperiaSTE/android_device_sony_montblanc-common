@@ -4,9 +4,6 @@ $(call inherit-product, hardware/ste-sony/common.mk)
 # Inherit from the vendor common montblanc definitions
 $(call inherit-product-if-exists, vendor/sony/montblanc-common/montblanc-common-vendor.mk)
 
-# Common montblanc headers
-TARGET_SPECIFIC_HEADER_PATH := device/sony/montblanc-common/include
-
 # Common montblanc settings overlays
 DEVICE_PACKAGE_OVERLAYS += device/sony/montblanc-common/overlay
 
@@ -28,8 +25,7 @@ PRODUCT_COPY_FILES += \
         frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
         frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
         frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-        frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-        packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
+        frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 # Configuration files
 PRODUCT_COPY_FILES += \
@@ -50,16 +46,12 @@ PRODUCT_COPY_FILES += \
         frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
 
 # Filesystem management tools
-PRODUCT_PACKAGES += \
-        make_ext4fs \
-        setup_fs \
-        e2fsck
+PRODUCT_PACKAGES += setup_fs
    
 # libtinyalsa & audio.usb.default
 PRODUCT_PACKAGES += \
         tinyalsa \
         libtinyalsa \
-        audio_policy.default \
         audio.usb.default
        
 # Hostapd & WIFI
@@ -69,9 +61,6 @@ PRODUCT_PACKAGES += \
         wpa_supplicant \
         wpa_cli \
         libwpa_client
-
-# Misc
-PRODUCT_PACKAGES += com.android.future.usb.accessory
 
 # BlueZ
 PRODUCT_PACKAGES += \
@@ -92,9 +81,9 @@ PRODUCT_PACKAGES += \
         libsbc \
         hciattach
 
-ADDITIONAL_DEFAULT_PROPERTIES += \
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
         ro.secure=0 \
-        ro.adb.secure=0
+        persist.sys.usb.config=mtp
 
 # Custom init scripts
 PRODUCT_COPY_FILES += \
