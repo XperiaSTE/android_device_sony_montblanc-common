@@ -92,10 +92,6 @@ PRODUCT_COPY_FILES += \
         device/sony/montblanc-common/config/init.st-ericsson.rc:root/init.st-ericsson.rc \
         device/sony/montblanc-common/config/ueventd.st-ericsson.rc:root/ueventd.st-ericsson.rc
 
-# Post recovery script
-PRODUCT_COPY_FILES += \
-        device/sony/montblanc-common/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
-
 # Hardware configuration scripts
 PRODUCT_COPY_FILES += \
         device/sony/montblanc-common/config/omxloaders:system/etc/omxloaders \
