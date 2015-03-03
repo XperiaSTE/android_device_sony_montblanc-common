@@ -26,9 +26,10 @@
     <bool name="config_hspa_data_distinguishable">true</bool>
     
     <!-- Disable expensive shadows -->
+    <!-- Whether to use cheap, less good looking shadows for recents -->
     <bool name="config_recents_fake_shadows">true</bool>
+    
     <!-- Use hardware layers in recents -->
     <bool name="config_recents_use_hardware_layers">true</bool>
-
 
 </resources>
