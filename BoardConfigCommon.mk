@@ -60,6 +60,7 @@ TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Graphics
 BOARD_EGL_CFG := device/sony/montblanc-common/config/egl.cfg
+BOARD_EGL_NEEDS_FNW := true
 USE_OPENGL_RENDERER := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
