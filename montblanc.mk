@@ -86,6 +86,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
         ro.secure=0 \
         persist.sys.usb.config=mtp
 
+PRODUCT_PROPERTY_OVERRIDES += \
+        persist.sys.root_access=1
+
 # Custom init scripts
 PRODUCT_COPY_FILES += \
         device/sony/montblanc-common/config/init.st-ericsson.rc:root/init.st-ericsson.rc \
