@@ -1,5 +1,0 @@
-bin/admsrv
-lib/hw/audio_policy.montblanc.so
-lib/hw/audio.primary.montblanc.so
-lib/libasound.so
-lib/libaudiopolicy.so
