@@ -17,6 +17,7 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(PRODUCT_OUT)/kernel $(recovery_ramdisk) $(INSTA
 	$(hide) cp $(PRODUCT_OUT)/utilities/busybox $(PRODUCT_OUT)/combinedroot/sbin/
 	$(hide) cp $(BOOTREC_DEVICE) $(PRODUCT_OUT)/combinedroot/sbin/
 	$(hide) cp $(BOOTREC_LED) $(PRODUCT_OUT)/combinedroot/sbin/
+	$(hide) sed -i "s/ro.adb.secure=1/ro.adb.secure=0/g" $(PRODUCT_OUT)/recovery/root/default.prop
 
 	$(hide) $(MKBOOTFS) $(PRODUCT_OUT)/root > $(PRODUCT_OUT)/ramdisk.cpio
 	$(hide) cp $(PRODUCT_OUT)/ramdisk.cpio $(PRODUCT_OUT)/combinedroot/sbin/
