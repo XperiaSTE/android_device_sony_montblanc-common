@@ -534,6 +534,9 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk
     class late_start
     disabled
 
+on property:sys.boot_completed=1
+    setprop persist.sys.root_access ${persist.sys.root_access}
+
 # To prevent connection to channel 12, 13 in flight mode/no coverage/no sim case at startup.
 on property:wlan.driver.status=ok
     start initial_regdom
