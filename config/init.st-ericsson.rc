@@ -215,7 +215,7 @@ on boot
 
     # Permissions for Libals.
     chown system system /sys/bus/i2c/devices/2-0040/als_on
-    chmod 664 /sys/bus/i2c/devices/2-0040/als_on
+    chmod 666 /sys/bus/i2c/devices/2-0040/als_on
     chown system system /sys/bus/i2c/devices/2-0036/als_result
     chmod 664 /sys/bus/i2c/devices/2-0036/als_result
     chown system system /sys/bus/i2c/devices/2-0036/als_enable
