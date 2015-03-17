@@ -196,6 +196,9 @@ on boot
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
 
+    # Initialize USB connection
+    write /sys/devices/platform/ab8500-i2c.0/ab8500-usb.0/boot_time_device 1
+
     # Permissions for Liblights.
     chown system system /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/leds/button-backlight/brightness
@@ -212,7 +215,7 @@ on boot
 
     # Permissions for Libals.
     chown system system /sys/bus/i2c/devices/2-0040/als_on
-    chmod 664 /sys/bus/i2c/devices/2-0040/als_on
+    chmod 666 /sys/bus/i2c/devices/2-0040/als_on
     chown system system /sys/bus/i2c/devices/2-0036/als_result
     chmod 664 /sys/bus/i2c/devices/2-0036/als_result
     chown system system /sys/bus/i2c/devices/2-0036/als_enable
@@ -514,10 +517,6 @@ service hw_config /system/bin/sh /system/etc/hw_config.sh
     class main
     user root
     oneshot
-    
-service usbid_init /system/bin/usbid_init.sh
-    class main
-    oneshot    
 
 # Start suntrold
 service suntrold /system/bin/suntrold
@@ -533,6 +532,9 @@ service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0
 service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
     class late_start
     disabled
+
+on property:sys.boot_completed=1
+    setprop persist.sys.root_access ${persist.sys.root_access}
 
 # To prevent connection to channel 12, 13 in flight mode/no coverage/no sim case at startup.
 on property:wlan.driver.status=ok

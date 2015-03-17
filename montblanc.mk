@@ -81,10 +81,11 @@ PRODUCT_PACKAGES += \
         libsbc \
         hciattach
 
-# Development settings
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-        ro.secure=0 \
-        persist.sys.usb.config=mtp
+# Run adbd as root
+ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
+
+# Default USB configuration
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=mtp
 
 PRODUCT_PROPERTY_OVERRIDES += \
         persist.sys.root_access=1
@@ -93,10 +94,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
         device/sony/montblanc-common/config/init.st-ericsson.rc:root/init.st-ericsson.rc \
         device/sony/montblanc-common/config/ueventd.st-ericsson.rc:root/ueventd.st-ericsson.rc
-
-# Post recovery script
-PRODUCT_COPY_FILES += \
-        device/sony/montblanc-common/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
 # Hardware configuration scripts
 PRODUCT_COPY_FILES += \
