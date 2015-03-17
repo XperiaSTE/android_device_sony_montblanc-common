@@ -119,3 +119,29 @@ TW_NO_CPU_TEMP := true
 
 # System proprieties
 TARGET_SYSTEM_PROP := device/sony/montblanc-common/system.prop
+
+# SELinux
+BOARD_SEPOLICY_DIRS += device/sony/montblanc-common/sepolicy
+BOARD_SEPOLICY_UNION += \
+       admsrv.te \
+       atd.te \
+       bluetoothd.te \
+       bluetoothd_snoop.te \
+       cn_server.te \
+       conn_init.te \
+       copsd.te \
+       device.te \
+       execmem.te \
+       gpsd.te \
+       hci_attach.te \
+       init.te \
+       iw.te \
+       modem-helpers.te \
+       psccd.te \
+       rild.te \
+       simd.te \
+       sms_server.te \
+       suntrold.te \
+       tad.te \
+       watchdogd.te \
+       wpa.te

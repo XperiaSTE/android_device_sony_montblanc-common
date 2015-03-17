@@ -119,6 +119,8 @@ on post-fs
     chown radio radio /modemfs/PERM/PROT/PPVALUES.DAT
     chmod 0644 /modemfs/PERM/PROT/PPVALUES.DAT
 
+    restorecon_recursive /modemfs
+
     # STE: Set permissions for wake locks before services are launched that use them
     chown radio system /sys/power/state
     chown radio system /sys/power/wake_lock
@@ -340,6 +342,7 @@ on boot
 
 #STE: Start the Modem Storage Agent (MSA) service
 service modem /system/bin/sh /system/etc/ste_modem.sh
+    seclabel u:r:conn_init:s0
     class modem-u8500
     user radio
     group radio
@@ -367,9 +370,10 @@ service init_ste-cg2900 /system/bin/hciattach -a 23 -n -s 115200 /dev/ttyAMA0 cg
     group bluetooth net_bt_admin system net_bt_stack
     disabled
     oneshot
-    
+
 # Install Wireless drivers
 service init_ste-cw1200 /system/bin/install_wlan.sh
+    seclabel u:r:conn_init:s0
     disabled
     oneshot
 
@@ -432,6 +436,7 @@ service cn_server /system/bin/cn_server
 
 # STE, PS connection control
 service init_stepscc /system/bin/sh /data/misc/psdata/stepscc_init.sh
+    seclabel u:r:conn_init:s0
     class main
     oneshot
 
@@ -442,6 +447,7 @@ service psccd /system/bin/psccd -f -c /data/misc/psdata/stepscc_conf
 
 # STE, PS routing control
 service init_sterc /system/bin/sh /data/misc/psdata/sterc_init.sh
+    seclabel u:r:conn_init:s0
     class main
     oneshot
 
@@ -476,6 +482,7 @@ service atd /system/bin/at_core -mode normal -serial ttyGS0
     group radio audio system
 
 service watchdog-kicker /system/xbin/watchdog-kicker -d /dev/watchdog -t 120
+    seclabel u:r:watchdogd:s0
     class main
     oneshot
 
