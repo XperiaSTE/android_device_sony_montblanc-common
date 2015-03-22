@@ -37,3 +37,6 @@ ro.sound.driver=alsa
 
 # Awesome Player
 persist.sys.media.use-awesome=true
+
+# USB OTG interface
+persist.sys.isUsbOtgEnabled=true
