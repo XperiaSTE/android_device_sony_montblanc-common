@@ -40,3 +40,6 @@ persist.sys.media.use-awesome=true
 
 # USB OTG interface
 persist.sys.isUsbOtgEnabled=true
+
+# MultiUser for LowRamDevice
+persist.sys.force_multiuser=true
