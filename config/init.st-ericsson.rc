@@ -194,6 +194,9 @@ on early-boot
 
 on boot
 
+    # Load kernel modules
+    insmod /system/lib/modules/bnep.ko
+
     # USB gadget initial setup
     write /sys/class/android_usb/android0/bDeviceClass 0
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
@@ -562,11 +565,9 @@ on property:init.svc.hostapd=stopped
 
 on property:init.svc.bluetoothd=stopped
     write /sys/class/rfkill/rfkill1/state 0
-    setprop bluetooth.status off
 
 on property:init.svc.bluetoothd=running
     write /sys/class/rfkill/rfkill1/state 1
-    setprop bluetooth.status on
 
 # SEMC: Start startupflag
 on property:dev.bootcomplete=1
