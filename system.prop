@@ -35,6 +35,9 @@ ste.special_fast_dormancy=false
 persist.audio.hp=true
 ro.sound.driver=alsa
 
+# Camera
+camera2.portability.force_api=1
+
 # Awesome Player
 media.stagefright.use-awesome=true
 persist.sys.media.use-awesome=true
