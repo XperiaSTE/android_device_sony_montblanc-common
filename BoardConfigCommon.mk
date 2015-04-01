@@ -88,6 +88,7 @@ EXTENDED_FONT_FOOTPRINT := true
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.montblanc
 
 # Custom boot
+BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := device/sony/montblanc-common/custombootimg.mk
 
 # Partitions
