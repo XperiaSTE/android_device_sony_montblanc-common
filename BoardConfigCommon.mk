@@ -22,7 +22,6 @@ ARCH_ARM_HAVE_NEON := true
 # Bionic flags
 BOARD_USES_LEGACY_MMAP := true
 TARGET_NEEDS_BIONIC_MD5 := true
-MALLOC_IMPL := dlmalloc
 
 # RIL implementation
 BOARD_RIL_CLASS := ../../../device/sony/montblanc-common/telephony-common/
