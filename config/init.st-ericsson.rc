@@ -119,6 +119,8 @@ on post-fs
     chown radio radio /modemfs/PERM/PROT/PPVALUES.DAT
     chmod 0644 /modemfs/PERM/PROT/PPVALUES.DAT
 
+    restorecon_recursive /modemfs
+
     # STE: Set permissions for wake locks before services are launched that use them
     chown radio system /sys/power/state
     chown radio system /sys/power/wake_lock
@@ -147,12 +149,6 @@ on post-fs-data
     # create basic filesystem structure
     mkdir /data/misc/hcid 0770 bluetooth bluetooth
     mkdir /data/misc/psdata
-
-    # give system access to ril_config
-    copy -u /system/etc/ril_config /data/misc/ril_config
-    chmod 0660 /data/misc/ril_config
-    chown root radio /data/misc/ril_config
-
     mkdir /data/misc/telephony_log_levels
     chmod 0660 /data/misc/telephony_log_levels
     chown root radio /data/misc/telephony_log_levels
@@ -183,6 +179,10 @@ on early-boot
 
     # STE: Launch core services in case charging mode is entered
     start watchdog-kicker
+
+    # init Phonet and shrm net device required for Phonet communication with Modem
+    ifup shrm0
+    ifup upnlink0
 
     # STE: Prepare modem
     class_start modem-u8500
@@ -342,18 +342,9 @@ on boot
     # STE: Enable wide-band speech for Bluetooth
     setprop bt.hfp.wideband 1
 
-# init shrm net device required for Phonet communication with Modem
-service shrm-netdev /system/bin/ifconfig shrm0 up
-    class modem-u8500
-    oneshot
-
-# init Phonet net device required for Phonet communication with Modem
-service phonet-netdev /system/bin/ifconfig upnlink0 up
-    class main
-    oneshot
-
 #STE: Start the Modem Storage Agent (MSA) service
 service modem /system/bin/sh /system/etc/ste_modem.sh
+    seclabel u:r:conn_init:s0
     class modem-u8500
     user radio
     group radio
@@ -381,9 +372,10 @@ service init_ste-cg2900 /system/bin/hciattach -a 23 -n -s 115200 /dev/ttyAMA0 cg
     group bluetooth net_bt_admin system net_bt_stack
     disabled
     oneshot
-    
+
 # Install Wireless drivers
 service init_ste-cw1200 /system/bin/install_wlan.sh
+    seclabel u:r:conn_init:s0
     disabled
     oneshot
 
@@ -433,12 +425,6 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service dhcpcd_fix /system/bin/rm /data/misc/dhcp/*
-    user root
-    group root system dhcp
-    disabled
-    oneshot
-
 # Regulatory domain handling
 service initial_regdom /system/bin/iw reg set US
     disabled
@@ -452,6 +438,7 @@ service cn_server /system/bin/cn_server
 
 # STE, PS connection control
 service init_stepscc /system/bin/sh /data/misc/psdata/stepscc_init.sh
+    seclabel u:r:conn_init:s0
     class main
     oneshot
 
@@ -462,6 +449,7 @@ service psccd /system/bin/psccd -f -c /data/misc/psdata/stepscc_conf
 
 # STE, PS routing control
 service init_sterc /system/bin/sh /data/misc/psdata/sterc_init.sh
+    seclabel u:r:conn_init:s0
     class main
     oneshot
 
@@ -496,6 +484,7 @@ service atd /system/bin/at_core -mode normal -serial ttyGS0
     group radio audio system
 
 service watchdog-kicker /system/xbin/watchdog-kicker -d /dev/watchdog -t 120
+    seclabel u:r:watchdogd:s0
     class main
     oneshot
 
@@ -555,7 +544,7 @@ on property:init.svc.wpa_supplicant=stopped
 
 on property:init.svc.dhcpcd_wlan0=stopped
     stop dhcpcd
-    start dhcpcd_fix
+    exec /system/bin/rm -r /data/misc/dhcp/
 
 on property:dhcp.wlan0.result=ok
     exec /system/bin/iw phy phy0 wowlan enable any
