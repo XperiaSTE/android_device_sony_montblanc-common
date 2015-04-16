@@ -38,6 +38,7 @@ TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.8
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
+BLUEZ_NEEDS_SAP_CHANGES := true
 
 # Audio
 COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB -DMR1_AUDIO_BLOB -DSTE_AUDIO
@@ -58,11 +59,12 @@ COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB -DREFBASE_JB_MR1_COMPAT_SYMBOLS
 TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Graphics
-BOARD_EGL_CFG := device/sony/montblanc-common/config/egl.cfg
 BOARD_EGL_NEEDS_FNW := true
 USE_OPENGL_RENDERER := true
 COMMON_GLOBAL_CFLAGS += -DBOARD_CANT_REALLOCATE_OMX_BUFFERS
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+HWUI_COMPILE_FOR_PERF := true
 
 # Bootanimation optimization flags
 TARGET_BOOTANIMATION_PRELOAD := true
@@ -86,6 +88,7 @@ EXTENDED_FONT_FOOTPRINT := true
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.montblanc
 
 # Custom boot
+BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := device/sony/montblanc-common/custombootimg.mk
 
 # Partitions
@@ -99,7 +102,8 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # Build
 TARGET_SYSTEMIMAGE_USE_SQUISHER := true
 
-# Recovery
+# TWRP Recovery
+TW_THEME := portrait_mdpi
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_10x18.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true
 COMMON_GLOBAL_CFLAGS += -DXPERIA_TWRP_TOUCH
@@ -122,3 +126,29 @@ MALLOC_IMPL := dlmalloc
 
 # System proprieties
 TARGET_SYSTEM_PROP := device/sony/montblanc-common/system.prop
+
+# SELinux
+BOARD_SEPOLICY_DIRS += device/sony/montblanc-common/sepolicy
+BOARD_SEPOLICY_UNION += \
+       admsrv.te \
+       atd.te \
+       bluetoothd.te \
+       bluetoothd_snoop.te \
+       cn_server.te \
+       conn_init.te \
+       copsd.te \
+       device.te \
+       execmem.te \
+       gpsd.te \
+       hci_attach.te \
+       init.te \
+       iw.te \
+       modem-helpers.te \
+       psccd.te \
+       rild.te \
+       simd.te \
+       sms_server.te \
+       suntrold.te \
+       tad.te \
+       watchdogd.te \
+       wpa.te

@@ -30,7 +30,6 @@ PRODUCT_COPY_FILES += \
 # Configuration files
 PRODUCT_COPY_FILES += \
         device/sony/montblanc-common/config/media_codecs.xml:system/etc/media_codecs.xml \
-        device/sony/montblanc-common/config/egl.cfg:system/lib/egl/egl.cfg \
         device/sony/montblanc-common/config/asound.conf:system/etc/asound.conf \
         device/sony/montblanc-common/config/hostapd.conf:system/etc/wifi/hostapd.conf \
         device/sony/montblanc-common/config/01stesetup:system/etc/init.d/01stesetup \
@@ -42,7 +41,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
         frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
         frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-        frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+        frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
         frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
 
 # Filesystem management tools
