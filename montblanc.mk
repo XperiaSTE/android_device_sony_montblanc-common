@@ -107,3 +107,25 @@ ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
 # Default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=mtp
 
+# Hardware-specific properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=131072 \
+    wifi.interface=wlan0 \
+    persist.sys.bluetooth.handsfree=hfp_wbs \
+    ro.zygote.disable_gl_preload=true \
+    debug.hwui.render_dirty_regions=false \
+    persist.sys.strictmode.disable=true
+
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=SonyU8500RIL \
+    ro.telephony.call_ring.multiple=false
+
+# Use Awesome Player
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.media.use-awesome=true
+
+# Force use old camera api
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
+

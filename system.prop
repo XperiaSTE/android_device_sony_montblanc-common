@@ -1,34 +1,15 @@
-# Wireless
-wifi.interface=wlan0
-
-# Bluetooth
-persist.sys.bluetooth.handsfree=hfp_wbs
-
 # RIL configuration
 rild.libargs=-c UNIX -n 2 -p /dev/socket/at_core -s /dev/socket/at_core -i rmnet
 rild.libpath=/system/lib/libu300-ril.so
-ro.telephony.ril_class=SonyU8500RIL
-ro.telephony.call_ring.multiple=false
-
-# OpenGL ES API version (131072 = 2.0)
-ro.opengles.version=131072
 
 # Debug compositor (0 = b2r2, 1 = Mali)
 debug.sf.hw=1
 
-# EGL miscellaneous
-ro.zygote.disable_gl_preload=true
-debug.hwui.render_dirty_regions=false
-hwui.render_dirty_regions=false
-
-# Disable Strict Mode
-persist.sys.strictmode.disable=true
-persist.sys.strictmode.visual=false
-
-# Low power audio
+# STE: Low power audio - enable ULP mode
 ste.nmf.autoidle=true
 
-# Fast Dormancy
+# STE: Fast Dormancy Flag
+# Fast Dormancy based on USB Tether Events and Screen States
 ste.special_fast_dormancy=false
 
 #STE: Hardware video codecs configuration
@@ -38,11 +19,4 @@ ste.video.dec.recycle.delay=1
 
 # Audio configuration
 persist.audio.hp=true
-ro.sound.driver=alsa
 
-# Camera
-camera2.portability.force_api=1
-
-# Awesome Player
-media.stagefright.use-awesome=true
-persist.sys.media.use-awesome=true
