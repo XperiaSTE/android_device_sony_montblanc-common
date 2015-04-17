@@ -31,6 +31,11 @@ ste.nmf.autoidle=true
 # Fast Dormancy
 ste.special_fast_dormancy=false
 
+#STE: Hardware video codecs configuration
+ste.video.dec.mpeg4.in.size=8192
+ste.video.enc.out.buffercnt=5
+ste.video.dec.recycle.delay=1
+
 # Audio configuration
 persist.audio.hp=true
 ro.sound.driver=alsa
