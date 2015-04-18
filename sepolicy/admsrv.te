@@ -25,7 +25,7 @@ userdebug_or_eng(`
   allow admsrv fuse:dir create_dir_perms;
   allow admsrv fuse:file create_file_perms;
   allow debuggerd gpu_device:chr_file r_file_perms;
-  # Unfortunately we can't authorize admsrv to do the following things
+  # Unfortunately we cannot authorize admsrv to do the following things
   dontaudit admsrv kmem_device:chr_file r_file_perms;
   dontaudit admsrv self:capability sys_rawio;
   permissive admsrv;
