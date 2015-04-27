@@ -569,8 +569,8 @@ on property:dev.bootcomplete=1
 # CM Performance Profiles
 # Powersave
 on property:sys.perf.profile=0
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor conservative
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor conservative
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor ondemand
 
 # Balanced
 on property:sys.perf.profile=1
