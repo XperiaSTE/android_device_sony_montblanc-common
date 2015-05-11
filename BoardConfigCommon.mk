@@ -122,7 +122,9 @@ TW_NO_CPU_TEMP := true
 TARGET_SYSTEM_PROP := device/sony/montblanc-common/system.prop
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/sony/montblanc-common/sepolicy
+BOARD_SEPOLICY_DIRS += \
+    device/sony/montblanc-common/sepolicy \
+    external/bluetooth/bluez/android
 
 BOARD_SEPOLICY_UNION += \
     admsrv.te \
