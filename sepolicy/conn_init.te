@@ -10,7 +10,7 @@ allow conn_init self:capability { net_admin net_raw sys_module };
 allow conn_init self:udp_socket create_socket_perms;
 allow conn_init shell_exec:file { read entrypoint };
 allow conn_init sysfs_wake_lock:file w_file_perms;
-allow conn_init wifi_data_file:file r_file_perms;
+allow conn_init tad_data_file:file r_file_perms;
 allow conn_init modem_file:dir rw_dir_perms;
 allow conn_init modem_file:file create_file_perms;
 allow conn_init system_file:file execute_no_trans;
