@@ -66,7 +66,10 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/config/synaptics_rmi4_i2c.idc:system/usr/idc/synaptics_rmi4_i2c.idc
 
 # Filesystem management tools
-PRODUCT_PACKAGES += setup_fs
+PRODUCT_PACKAGES += \
+    setup_fs \
+    fsck.f2fs \
+    mkfs.f2fs
    
 # libtinyalsa & audio.usb.default
 PRODUCT_PACKAGES += \
