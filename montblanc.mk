@@ -124,10 +124,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=SonyU8500RIL \
     ro.telephony.call_ring.multiple=false
 
-# Use Awesome Player
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.media.use-awesome=true
-
 # Force use old camera api
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
