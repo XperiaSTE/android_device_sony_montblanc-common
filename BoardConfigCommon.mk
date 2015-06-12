@@ -91,6 +91,7 @@ BOARD_HAL_STATIC_LIBRARIES := libhealthd.montblanc
 # Custom boot
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := device/sony/montblanc-common/custombootimg.mk
+BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x01000000
