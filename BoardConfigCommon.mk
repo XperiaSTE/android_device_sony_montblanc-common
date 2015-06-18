@@ -108,6 +108,9 @@ ifeq ($(HOST_OS),linux)
 TARGET_USERIMAGES_USE_F2FS := true
 endif
 
+# Disable secure discard
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
+
 # TWRP Recovery
 TW_THEME := portrait_mdpi
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_10x18.h\"
