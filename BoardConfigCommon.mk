@@ -82,6 +82,9 @@ ifeq ($(HOST_OS),linux)
 endif
 DONT_DEXPREOPT_PREBUILTS := true
 
+# Don't generate block based zips
+BLOCK_BASED_OTA := false
+
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
