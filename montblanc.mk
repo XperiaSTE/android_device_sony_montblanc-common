@@ -121,6 +121,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=SonyU8500RIL \
+    ro.telephony.ril.config=signalstrength \
     ro.telephony.call_ring.multiple=false
 
 # Audio
