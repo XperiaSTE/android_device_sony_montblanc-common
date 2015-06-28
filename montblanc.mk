@@ -43,8 +43,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    $(COMMON_PATH)/config/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml
+    $(COMMON_PATH)/config/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml
 
 # Custom init scripts
 PRODUCT_COPY_FILES += \
@@ -64,6 +63,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/config/sensor00_f11_sensor0.idc:system/usr/idc/sensor00_f11_sensor0.idc \
     $(COMMON_PATH)/config/synaptics_rmi4_i2c.idc:system/usr/idc/synaptics_rmi4_i2c.idc
+
+# HAL
+PRODUCT_PACKAGES += \
+    sensors.montblanc
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -125,11 +128,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=SonyU8500RIL \
+    ro.telephony.ril.config=signalstrength \
     ro.telephony.call_ring.multiple=false
 
-# Use Awesome Player
+# Audio
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.media.use-awesome=true
+    audio.offload.disable=1
 
 # Force use old camera api
 PRODUCT_PROPERTY_OVERRIDES += \
