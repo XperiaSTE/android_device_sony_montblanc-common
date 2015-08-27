@@ -89,6 +89,9 @@ DONT_DEXPREOPT_PREBUILTS := true
 # Disable compression of precompiled odex with gzip
 WITH_DEXPREOPT_COMP := false
 
+# Enable position-independent code for odex files
+WITH_DEXPREOPT_PIC := true
+
 # Don't generate block based zips
 BLOCK_BASED_OTA := false
 
