@@ -86,6 +86,9 @@ ifeq ($(HOST_OS),linux)
 endif
 DONT_DEXPREOPT_PREBUILTS := true
 
+# Disable compression of precompiled odex with gzip
+WITH_DEXPREOPT_COMP := false
+
 # Don't generate block based zips
 BLOCK_BASED_OTA := false
 
