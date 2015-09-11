@@ -150,6 +150,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Garbage Collector type
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+# ART
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-filter=interpret-only \
+    dalvik.vm.image-dex2oat-filter=speed
+
 # OpenDelta
 #PRODUCT_PROPERTY_OVERRIDES += ro.delta.version=VERSION
 #PRODUCT_PACKAGES += OpenDelta
