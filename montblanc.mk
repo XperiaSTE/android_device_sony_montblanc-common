@@ -118,12 +118,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Hardware-specific properties
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=131072 \
-    wifi.interface=wlan0 \
-    persist.sys.bluetooth.handsfree=hfp_wbs \
-    ro.zygote.disable_gl_preload=true \
     debug.hwui.render_dirty_regions=false \
-    persist.sys.strictmode.disable=true
+    persist.sys.bluetooth.handsfree=hfp_wbs \
+    persist.sys.strictmode.disable=true \
+    ro.opengles.version=131072 \
+    ro.zygote.disable_gl_preload=true \
+    sys.io.scheduler=bfq \
+    wifi.interface=wlan0
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
